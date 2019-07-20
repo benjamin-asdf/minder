@@ -1,9 +1,12 @@
-import os
-import strformat
+import osproc, strformat
+
+const PromptMsg = "Rate your current flow: "
 
 var options: string
-for item in ["blubb", "blobb", "lul"]:
-  options = options & item & '\n'
 
-let cmd = &"echo \"{options}\" | dmenu"
-discard execShellCmd(cmd)
+for i in 0..9:
+  options = options & $i & '\n'
+
+let output = execProcess(&"echo \"{options}\" | dmenu -p \"{PromptMsg}\"")
+
+echo "Current flow was rated with: ", output
